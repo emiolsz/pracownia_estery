@@ -13,6 +13,8 @@ export async function interpretText(instructions:string,input:string){
    return result.text;
   }catch(error){
    if(error instanceof InterpretationError)throw error;
+   const detail=error as {name?:string,statusCode?:number,cause?:{name?:string,code?:string}};
+   console.error('google_interpretation_failed',{name:detail?.name||'UnknownError',status:detail?.statusCode||null,causeName:detail?.cause?.name||null,causeCode:detail?.cause?.code||null,model:e.GEMINI_MODEL||'gemini-3.8-flash'});
    if(APICallError.isInstance(error)){
     if(error.statusCode===429)throw new InterpretationError('Google AI osiągnęło limit zapytań. Spróbuj ponownie później.',429);
     if(error.statusCode===401||error.statusCode===403)throw new InterpretationError('Połączenie z Google AI wymaga sprawdzenia konfiguracji przez administratorkę.',503);
