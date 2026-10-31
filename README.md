@@ -69,3 +69,7 @@ Testy redaktorów: `node --experimental-transform-types tests/editor-admin.test.
 ## Pracownia i kontakt
 /pracownia zawiera formularz kontaktowy. CONTACT_EMAIL wskazuje odbiorcę (fallback ADMIN_EMAIL). Gdy MAIL_FROM i BREVO_API_KEY lub RESEND_API_KEY są skonfigurowane, wiadomość jest wysyłana przez serwer wyłącznie do tej skrzynki; adres odwiedzającego jest Reply-To. Formularz nigdy nie używa odwiedzającego jako nadawcy. POST /api/contact ma kontrolę źródła, walidację, honeypot oraz limity 3/dzień/adres IP i 50/dzień globalnie.
 Bez konfiguracji poczty formularz jawnie przygotowuje mailto do wysłania w programie pocztowym odwiedzającego; nie pokazuje fałszywego potwierdzenia wysyłki. Bezpośrednia wysyłka wymaga podłączenia poczty.
+
+## Magazyn Czytelni
+Redakcja ma pola: podpis redaktora, tematyka, tytuł, krótki opis i pełna treść. Podgląd pokazuje kartę z dwoma wierszami opisu; pełna treść pozostaje bez skracania. Tematy: Jung, Sny, Synchroniczności, Refleksje. Font Lora jest hostowany lokalnie, z licencją SIL OFL i sprawdzonym zestawem polskich znaków.
+Metadane redakcyjne są zapisywane w wersjonowanej treści estera_articles.body (ESTERA_ARTICLE_V1); istniejąca funkcja publikowania utrwala cały komplet w published_body. API dekoduje je do osobnych pól; stare teksty bez nagłówka pozostają czytelne bez migracji. Edycja szkicu nie zmienia opublikowanego podpisu ani tematyki przed ponowną publikacją. Test: node --experimental-transform-types tests/article-content.test.mjs.
