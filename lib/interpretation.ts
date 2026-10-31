@@ -6,7 +6,7 @@ export async function interpretText(instructions:string,input:string){
   const model=e.GEMINI_MODEL||'gemini-3.8-flash',started=Date.now();
   let phase='connect';
   try{
-   const response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent',{
+   const response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':streamGenerateContent?alt=sse',{
     method:'POST',headers:{'x-goog-api-key':config.apiKey,'Content-Type':'application/json'},
     body:JSON.stringify({systemInstruction:{parts:[{text:instructions}]},contents:[{role:'user',parts:[{text:input}]}],generationConfig:{maxOutputTokens:3000,thinkingConfig:{thinkingLevel:'low',includeThoughts:false}}}),
     signal:AbortSignal.timeout(90000)
@@ -21,10 +21,34 @@ export async function interpretText(instructions:string,input:string){
     throw new InterpretationError('Google AI zwróciło błąd usługi. Spróbuj ponownie później.',502);
    }
    phase='body';
-   const result=await response.json();
-   const candidate=result.candidates?.[0];
-   if(candidate?.finishReason==='MAX_TOKENS')throw new InterpretationError('Interpretacja okazała się zbyt długa. Spróbuj opisać sen krócej.');
-   const answer=(candidate?.content?.parts||[]).filter((part:any)=>typeof part.text==='string'&&!part.thought).map((part:any)=>part.text).join('\n\n').trim();
+   if(!response.body)throw new InterpretationError('Google AI zwróciło pustą odpowiedź.');
+   const reader=response.body.getReader(),decoder=new TextDecoder();
+   let pending='',answer='',finished=false;
+   const consume=(event:string)=>{
+    const data=event.split('\n').filter(line=>line.startsWith('data:')).map(line=>line.slice(5).trimStart()).join('\n').trim();
+    if(!data||data==='[DONE]')return;
+    const result=JSON.parse(data);
+    if(result.error)throw new InterpretationError('Google AI przerwało generowanie odpowiedzi.');
+    const candidate=result.candidates?.[0];
+    if(candidate?.finishReason==='MAX_TOKENS')throw new InterpretationError('Interpretacja okazała się zbyt długa. Spróbuj opisać sen krócej.');
+    if(candidate?.finishReason==='STOP')finished=true;
+    answer+=(candidate?.content?.parts||[]).filter((part:any)=>typeof part.text==='string'&&!part.thought).map((part:any)=>part.text).join('');
+   };
+   try{
+    while(true){
+     const chunk=await reader.read();
+     pending+=decoder.decode(chunk.value||new Uint8Array(),{stream:!chunk.done});
+     let match:RegExpExecArray|null;
+     while((match=/\r?\n\r?\n/.exec(pending))){
+      consume(pending.slice(0,match.index));
+      pending=pending.slice(match.index+match[0].length);
+     }
+     if(chunk.done)break;
+    }
+    if(pending.trim())consume(pending);
+   }finally{reader.releaseLock();}
+   answer=answer.trim();
+   if(!finished&&answer)throw new InterpretationError('Google AI nie zakończyło interpretacji. Spróbuj ponownie.');
    if(!answer)throw new InterpretationError('Nie udało się przygotować interpretacji. Spróbuj opisać sen innymi słowami.');
    return answer;
   }catch(error){
