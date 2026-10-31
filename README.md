@@ -65,3 +65,7 @@ Test VIP: `node --experimental-transform-types tests/vip-admin.test.mjs`. Test p
 ADMIN_EMAIL nadaje role w /admin. Maksymalnie 5 aktywnych redaktorów; termin wygaśnięcia obowiązkowy. Rola estera_editor_until jest przechowywana w zaufanym Supabase app_metadata, sprawdzanym na świeżo przez serwer. Przeznaczenie: wspólna redakcja szkiców Czytelni, bez publikacji, ról kont, VIP, płatności i cudzych dzienników. Tylko właścicielka może publikować i nadawać/odbierać role. Wygasłe role nie zajmują miejsc. Limit pięciu jest serializowany krótką dzierżawą estera-editor-management-lock w prywatnej estera_usage (bez nowej migracji). Nie zmienia ról ani uprawnień Soul Decodera.
 
 Testy redaktorów: `node --experimental-transform-types tests/editor-admin.test.mjs`; po `npm run build`: `node tests/editor-flow.test.mjs`. Testy używają lokalnych kont testowych i mocka Supabase, bez prawdziwych danych.
+
+## Pracownia i kontakt
+/pracownia zawiera formularz kontaktowy. CONTACT_EMAIL wskazuje odbiorcę (fallback ADMIN_EMAIL). Gdy MAIL_FROM i BREVO_API_KEY lub RESEND_API_KEY są skonfigurowane, wiadomość jest wysyłana przez serwer wyłącznie do tej skrzynki; adres odwiedzającego jest Reply-To. Formularz nigdy nie używa odwiedzającego jako nadawcy. POST /api/contact ma kontrolę źródła, walidację, honeypot oraz limity 3/dzień/adres IP i 50/dzień globalnie.
+Bez konfiguracji poczty formularz jawnie przygotowuje mailto do wysłania w programie pocztowym odwiedzającego; nie pokazuje fałszywego potwierdzenia wysyłki. Bezpośrednia wysyłka wymaga podłączenia poczty.
