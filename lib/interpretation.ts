@@ -7,7 +7,7 @@ export async function interpretText(instructions:string,input:string){
  if(config?.provider==='google'){
   try{
    const google=createGoogle({apiKey:config.apiKey});
-   const result=await generateText({model:google(e.GEMINI_MODEL||'gemini-3.8-flash'),instructions,prompt:input,maxOutputTokens:3000,maxRetries:0,abortSignal:AbortSignal.timeout(45000),providerOptions:{google:{thinkingConfig:{thinkingLevel:'low',includeThoughts:false}}}});
+   const result=await generateText({model:google(e.GEMINI_MODEL||'gemini-3.8-flash'),instructions,prompt:input,maxOutputTokens:3000,maxRetries:0,abortSignal:AbortSignal.timeout(90000),providerOptions:{google:{thinkingConfig:{thinkingLevel:'low',includeThoughts:false}}}});
    if(result.finishReason==='length')throw new InterpretationError('Interpretacja okazała się zbyt długa. Spróbuj opisać sen krócej.');
    if(!result.text.trim())throw new InterpretationError('Nie udało się przygotować interpretacji. Spróbuj opisać sen innymi słowami.');
    return result.text;
@@ -21,6 +21,7 @@ export async function interpretText(instructions:string,input:string){
     if(error.statusCode===400)throw new InterpretationError('Google AI odrzuciło konfigurację zapytania. Administratorka musi sprawdzić ustawienia modelu.',503);
     if(error.statusCode===404)throw new InterpretationError('Wybrany model Google AI nie jest dostępny. Administratorka musi sprawdzić konfigurację.',503);
    }
+   if(detail?.name==='TimeoutError'||detail?.name==='AbortError')throw new InterpretationError('Google AI przekroczyło czas oczekiwania. Spróbuj ponownie za chwilę.',504);
    throw new InterpretationError('Google AI nie odpowiedziało. Spróbuj ponownie później.');
   }
  }
