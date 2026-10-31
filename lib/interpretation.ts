@@ -6,11 +6,20 @@ export async function interpretText(instructions:string,input:string){
   const model=e.GEMINI_MODEL||'gemini-3.8-flash',started=Date.now();
   let phase='connect';
   try{
-   const response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':streamGenerateContent?alt=sse',{
+   const signal=AbortSignal.timeout(90000);
+   let response:Response|undefined;
+   for(let attempt=0;attempt<3;attempt++){
+   response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':streamGenerateContent?alt=sse',{
     method:'POST',headers:{'x-goog-api-key':config.apiKey,'Content-Type':'application/json'},
     body:JSON.stringify({systemInstruction:{parts:[{text:instructions}]},contents:[{role:'user',parts:[{text:input}]}],generationConfig:{maxOutputTokens:3000,thinkingConfig:{thinkingLevel:'low',includeThoughts:false}}}),
-    signal:AbortSignal.timeout(90000)
+    signal
    });
+   if(![502,503,504].includes(response.status)||attempt===2)break;
+   console.info('google_api_retry',{status:response.status,attempt:attempt+1});
+   await response.body?.cancel();
+   await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1)));
+   }
+   if(!response)throw new InterpretationError('Google AI nie zwróciło odpowiedzi.');
    phase='response';
    console.info('google_api_response',{status:response.status,elapsedMs:Date.now()-started,model});
    if(!response.ok){
