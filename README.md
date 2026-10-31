@@ -49,3 +49,9 @@ Node.js 22, `npm ci`, `npm run build`, `npm start`. Plik `.env.example` zawiera 
 Przed publicznym uruchomieniem usług uzupełnij informacje o administratorze danych, prywatności i usługach zewnętrznych oraz sprawdź pocztę i przepływ AI z prawdziwą konfiguracją.
 
 Testy licznika (Node 22+): `node --experimental-transform-types tests/interpretation-quota.test.mjs`.
+
+## Dziennik właścicielki i e-book
+ADMIN_EMAIL przypisuje rolę wyłącznie po potwierdzeniu e-maila w Supabase Auth. Administratorka korzysta bezpłatnie z dziennika i zbiorczego e-booka PDF (okładka, spis snów, wpisy chronologicznie). Interpretacje zachowują dotychczasowe limity.
+Eksport GET /api/journal/export pobiera wyłącznie wpisy zalogowanej osoby z bazy; zwraca 401 bez sesji i 402 bez uprawnienia. Pojedyncze PDF i kopia JSON pozostają bezpłatne.
+Dla pozostałych planowana jest subskrypcja na 3 miesiące. Sprzedaż jest wyłączona do ustalenia ceny i odnowień oraz podłączenia płatności. Serwer weryfikuje przyszły termin w zaufanym Supabase app_metadata.estera_ebook_until, nigdy w user_metadata. Ten termin powinien zapisywać wyłącznie serwer po zweryfikowaniu płatności. Wygaśnięcie blokuje eksport zbiorczy, nie usuwa snów.
+Test uprawnień: node --experimental-transform-types tests/journal-access.test.mjs

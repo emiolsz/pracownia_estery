@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {journalAccess} from '../lib/journal-access.ts';
+const now=Date.parse('2026-10-31T00:00:00Z'),owner='owner@example.test';
+assert.equal(journalAccess(null,owner,now),false);
+assert.equal(journalAccess({email:'OWNER@example.test'},owner,now),true);
+assert.equal(journalAccess({email:'other@example.test'},owner,now),false);
+assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:'2027-01-31T00:00:00Z'},owner,now),true);
+assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:'2026-10-30T00:00:00Z'},owner,now),false);
+assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:'invalid'},owner,now),false);
+assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:new Date(now).toISOString()},owner,now),false);
+console.log('PASS owner, guest, unpaid, active, expired, invalid and exact expiry');
