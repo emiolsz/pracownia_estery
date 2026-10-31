@@ -25,14 +25,14 @@ Sesja działa w ciasteczkach HttpOnly, Secure w produkcji, SameSite=Lax. Serwer 
 
 ## Interpretacje i poczta
 
-- `GEMINI_API_KEY` — klucz Google AI Studio. Domyślny model: `gemini-3.8-flash`; opcjonalne nadpisanie przez `GEMINI_MODEL`. Gdy dodano oba klucze AI, domyślnie używany jest Gemini. `AI_PROVIDER=google` lub `openai` wybiera dostawcę jawnie. Treść snu jest wysyłana do wybranego dostawcy dopiero po zaznaczeniu zgody.
+- `GEMINI_API_KEY` — klucz Google AI Studio. Domyślny model: `gemini-3.5-flash-lite`; opcjonalne nadpisanie przez `GEMINI_MODEL`. Gdy dodano oba klucze AI, domyślnie używany jest Gemini. `AI_PROVIDER=google` lub `openai` wybiera dostawcę jawnie. Treść snu jest wysyłana do wybranego dostawcy dopiero po zaznaczeniu zgody.
 - `OPENAI_API_KEY` — alternatywny klucz API OpenAI; `OPENAI_MODEL` opcjonalnie (domyślnie `gpt-4.1-mini`). Potrzebna jest także skonfigurowana baza do trwałych limitów użycia.
 - `BREVO_API_KEY` — alternatywnie klucz API Brevo (**nie klucz SMTP**). `MAIL_FROM` to zatwierdzony adres nadawcy. Brevo ma pierwszeństwo, gdy podano oba klucze pocztowe; można wybrać `MAIL_PROVIDER=brevo` lub `resend`.
 - `RESEND_API_KEY` — klucz Resend; `MAIL_FROM` — zatwierdzony adres nadawcy w Resend. PDF wysyłany jest wyłącznie na potwierdzony adres zalogowanej osoby. Mail zawiera odnośnik do Soul Decodera.
 
 Nie udostępniaj kluczy w czacie ani w plikach GitHuba. Po zmianie zmiennych wykonaj Redeploy.
 
-Limity startowe: 3 interpretacje/dzień bez logowania, 20 dla zalogowanego konta, 200 dla całej strony, 10 wysyłek PDF na konto/dzień, 500 snów na konto. Limity przechowywane są w bazie, nie w pamięci pojedynczej funkcji. Żadne wiadomości testowe nie są automatycznie wysyłane podczas kompilacji.
+Limity startowe: 3 udane interpretacje/dzień bez logowania, 20 dla zalogowanego konta, 200 dla całej strony, 10 wysyłek PDF na konto/dzień, 500 snów na konto. Limity przechowywane są w bazie, nie w pamięci pojedynczej funkcji. Miejsca w limicie są rezerwowane atomowo w istniejącej tabeli estera_usage, naliczane dopiero po uzyskaniu pełnej odpowiedzi i zwalniane przy błędzie. Rezerwacje po przerwanym żądaniu wygasają po 180 sekundach. Nowy licznik interpret-v2 nie przenosi starych liczników prób, obejmujących błędy. Dzień limitu liczony jest według UTC. Żadne wiadomości testowe nie są automatycznie wysyłane podczas kompilacji.
 
 ## Sprawdzenie po wdrożeniu
 
@@ -47,3 +47,5 @@ Limity startowe: 3 interpretacje/dzień bez logowania, 20 dla zalogowanego konta
 Node.js 22, `npm ci`, `npm run build`, `npm start`. Plik `.env.example` zawiera same nazwy ustawień, bez kluczy.
 
 Przed publicznym uruchomieniem usług uzupełnij informacje o administratorze danych, prywatności i usługach zewnętrznych oraz sprawdź pocztę i przepływ AI z prawdziwą konfiguracją.
+
+Testy licznika (Node 22+): `node --experimental-transform-types tests/interpretation-quota.test.mjs`.

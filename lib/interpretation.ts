@@ -3,7 +3,7 @@ export class InterpretationError extends Error {constructor(message:string,publi
 export async function interpretText(instructions:string,input:string){
  const e=process.env,config=aiConfiguration();
  if(config?.provider==='google'){
-  const model=e.GEMINI_MODEL||'gemini-3.8-flash',started=Date.now();
+  const model=e.GEMINI_MODEL||'gemini-3.5-flash-lite',started=Date.now();
   let phase='connect';
   try{
    const signal=AbortSignal.timeout(90000);
