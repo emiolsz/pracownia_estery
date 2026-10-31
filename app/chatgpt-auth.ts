@@ -1,9 +1,10 @@
+import {journalGender} from '@/lib/journal-person';
 import {cookies} from 'next/headers';
-export type ChatGPTUser={userId:string,displayName:string,email:string,fullName:string|null,ebookAccessUntil:string|null,isVip:boolean,editorUntil:string|null};
+export type ChatGPTUser={userId:string,displayName:string,email:string,fullName:string|null,ebookAccessUntil:string|null,isVip:boolean,editorUntil:string|null,journalName:string,journalGender:ReturnType<typeof journalGender>};
 export const authReady=()=>!!(process.env.SUPABASE_URL&&process.env.SUPABASE_ANON_KEY);
-export async function authRequest(path:string,body?:unknown,access?:string){
+export async function authRequest(path:string,body?:unknown,access?:string,method?:string){
  if(!authReady())throw new Error('Logowanie czeka na konfigurację Supabase. PDF możesz pobrać bez logowania.');
- return fetch(process.env.SUPABASE_URL!.replace(/\/$/,'')+'/auth/v1/'+path,{method:body===undefined?'GET':'POST',cache:'no-store',headers:{apikey:process.env.SUPABASE_ANON_KEY!,'Content-Type':'application/json',...(access?{Authorization:'Bearer '+access}:{})},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
+ return fetch(process.env.SUPABASE_URL!.replace(/\/$/,'')+'/auth/v1/'+path,{method:method||(body===undefined?'GET':'POST'),cache:'no-store',headers:{apikey:process.env.SUPABASE_ANON_KEY!,'Content-Type':'application/json',...(access?{Authorization:'Bearer '+access}:{})},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
 }
 export async function saveSession(session:{access_token:string,refresh_token:string,expires_in?:number}){
  const jar=await cookies();const options={httpOnly:true,secure:process.env.NODE_ENV==='production',sameSite:'lax' as const,path:'/'};
@@ -15,5 +16,5 @@ export async function getChatGPTUser():Promise<ChatGPTUser|null>{
  let response=access?await authRequest('user',undefined,access):null;
  if(!response||response.status===401||response.status===403){if(!refresh)return null;const renewed=await authRequest('token?grant_type=refresh_token',{refresh_token:refresh});if(!renewed.ok)return null;const session=await renewed.json();await saveSession(session);access=session.access_token;response=await authRequest('user',undefined,access);}
  if(!response.ok)return null;const u=await response.json();if(!u.id||!u.email||!u.email_confirmed_at)return null;
- return {userId:u.id,email:u.email,displayName:u.user_metadata?.full_name||u.email,fullName:u.user_metadata?.full_name||null,editorUntil:typeof u.app_metadata?.estera_editor_until==='string'?u.app_metadata.estera_editor_until:null,isVip:u.app_metadata?.estera_vip===true,ebookAccessUntil:typeof u.app_metadata?.estera_ebook_until==='string'?u.app_metadata.estera_ebook_until:null};
+ return {userId:u.id,email:u.email,displayName:u.user_metadata?.full_name||u.email,fullName:u.user_metadata?.full_name||null,journalName:typeof u.user_metadata?.estera_journal_name==='string'?u.user_metadata.estera_journal_name.slice(0,60):'',journalGender:journalGender(u.user_metadata?.estera_journal_gender),editorUntil:typeof u.app_metadata?.estera_editor_until==='string'?u.app_metadata.estera_editor_until:null,isVip:u.app_metadata?.estera_vip===true,ebookAccessUntil:typeof u.app_metadata?.estera_ebook_until==='string'?u.app_metadata.estera_ebook_until:null};
 }

@@ -20,3 +20,10 @@
 @media(max-width:1000px){.article-compose{grid-template-columns:1fr}.article-live-preview{position:static}.magazine-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.magazine-featured{grid-row:auto;grid-column:auto;border-right:0;padding-right:0}.magazine-featured h2{font-size:32px}}@media(max-width:650px){.magazine-grid,.magazine-sections,.editor-columns:has(.article-editor){grid-template-columns:1fr}.magazine-topics{gap:12px}.magazine-meta{font-size:12px}.magazine-full .prose{font-size:17px}.article-live-preview{padding:15px}}
 
 .dream-fields{border:0;padding:0;margin:0;min-width:0}#dream-form{scroll-margin-top:24px}
+.journal-person{border:1px solid #d8c7aa;border-radius:10px;padding:16px 20px;margin:0 0 24px;min-width:0}.journal-person legend{font:18px EsteraLora,Georgia,serif;padding:0 8px}.journal-person select{width:100%;padding:12px 14px;border:1px solid #d5c9b4;border-radius:8px;background:#fffdfa;color:#23303c;font:inherit}.interpretation-editor{margin-top:24px;border-top:1px solid #d8c7aa;padding-top:18px}.interpretation-editor summary{cursor:pointer}
+
+.journal-gender-select{width:100%;padding:12px 14px;border:1px solid #d5c9b4;border-radius:8px;background:#fffdfa;color:#23303c;font:inherit}
+
+.journal-sort{display:block;max-width:400px;margin:24px 0;font-size:14px}.journal-sort select{display:block;width:100%;margin-top:8px;padding:12px 14px;border:1px solid #d5c9b4;border-radius:8px;background:#fffdfa;color:#23303c;font:inherit}
+
+.journal-range{margin:26px 0;padding:20px;border:1px solid #d8c7aa;border-radius:10px}.journal-range h2{font:22px EsteraLora,Georgia,serif;margin:0 0 15px}.journal-range-fields{display:flex;gap:18px;align-items:end;flex-wrap:wrap}.journal-range-fields label{display:block;flex:1;min-width:150px}.journal-range-fields input{display:block;width:100%;padding:11px;margin-top:6px;border:1px solid #d5c9b4;border-radius:7px;background:#fffdfa;color:#23303c;font:inherit}.journal-range-fields button{margin:0}
