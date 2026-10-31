@@ -60,3 +60,8 @@ Test uprawnień: node --experimental-transform-types tests/journal-access.test.m
 W /admin właścicielka sprawdza zarejestrowane i potwierdzone konto po e-mailu, a następnie przyznaje/odbiera VIP. Tylko serwer i ADMIN_EMAIL mogą zmieniać status przez POST /api/admin/vip; endpoint nie zmienia roli Supabase ani subskrypcji. Zaufane app_metadata.estera_vip=true odblokowuje bezpłatny zbiorczy e-book PDF do wydruku, do odwołania. User metadata są ignorowane. Status jest sprawdzany na świeżo z Supabase Auth przy każdym eksporcie. Cofnięcie VIP nie usuwa snów ani wcześniej pobranych plików; płatne uprawnienie jest niezależne.
 
 Test VIP: `node --experimental-transform-types tests/vip-admin.test.mjs`. Test pełnych tras z lokalnym mockiem Supabase: po `npm run build` uruchom `node tests/vip-flow.test.mjs` (porty 3100/3101). Nie używa prawdziwych kont ani sekretów.
+
+## Czasowi redaktorzy
+ADMIN_EMAIL nadaje role w /admin. Maksymalnie 5 aktywnych redaktorów; termin wygaśnięcia obowiązkowy. Rola estera_editor_until jest przechowywana w zaufanym Supabase app_metadata, sprawdzanym na świeżo przez serwer. Przeznaczenie: wspólna redakcja szkiców Czytelni, bez publikacji, ról kont, VIP, płatności i cudzych dzienników. Tylko właścicielka może publikować i nadawać/odbierać role. Wygasłe role nie zajmują miejsc. Limit pięciu jest serializowany krótką dzierżawą estera-editor-management-lock w prywatnej estera_usage (bez nowej migracji). Nie zmienia ról ani uprawnień Soul Decodera.
+
+Testy redaktorów: `node --experimental-transform-types tests/editor-admin.test.mjs`; po `npm run build`: `node tests/editor-flow.test.mjs`. Testy używają lokalnych kont testowych i mocka Supabase, bez prawdziwych danych.

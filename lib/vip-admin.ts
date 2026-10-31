@@ -12,7 +12,7 @@ export async function findRegisteredUser(request:AuthAdminRequest,email:string):
 }
 export async function setLoyaltyVip(request:AuthAdminRequest,target:RegisteredUser,enabled:boolean,adminId:string){
  // Only this Pracownia entitlement is changed. No Auth role, identity or subscription changes.
- const metadata={...(target.app_metadata||{}),estera_vip:enabled,estera_vip_updated_at:new Date().toISOString(),estera_vip_updated_by:adminId};
+ const metadata={estera_vip:enabled,estera_vip_updated_at:new Date().toISOString(),estera_vip_updated_by:adminId};
  const updated=await request('users/'+encodeURIComponent(target.id),'PUT',{app_metadata:metadata});
  const user=updated.user||updated;
  if(user.id!==target.id||user.app_metadata?.estera_vip!==enabled)throw new Error('Nie potwierdzono zmiany statusu VIP. Odśwież status konta.');
