@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {findRegisteredUser,setLoyaltyVip} from '../lib/vip-admin.ts';
+const target={id:'test-user-id',email:'loyal@example.test',email_confirmed_at:'2026-10-01',app_metadata:{provider:'email',soul_decoder_access:'preserved',estera_ebook_until:'2027-01-31'}};
+let update;
+const request=async(path,method='GET',body)=>{if(method==='GET')return{users:[target]};update={path,body};return{...target,app_metadata:body.app_metadata};};
+assert.equal((await findRegisteredUser(request,'loyal@example.test')).id,target.id);
+assert.equal(await findRegisteredUser(request,'missing@example.test'),null);
+await setLoyaltyVip(request,target,true,'owner-id');
+assert.equal(update.path,'users/test-user-id');assert.equal(update.body.app_metadata.estera_vip,true);
+assert.equal(update.body.app_metadata.soul_decoder_access,'preserved');assert.equal(update.body.app_metadata.estera_ebook_until,'2027-01-31');assert.deepEqual(Object.keys(update.body),['app_metadata']);
+assert.equal(update.body.app_metadata.estera_vip_updated_by,'owner-id');
+await setLoyaltyVip(request,target,false,'owner-id');assert.equal(update.body.app_metadata.estera_vip,false);
+assert.equal(update.body.app_metadata.estera_ebook_until,'2027-01-31');
+await assert.rejects(()=>setLoyaltyVip(async()=>({id:target.id,app_metadata:{estera_vip:false}}),target,true,'owner-id'));
+console.log('PASS VIP lookup, grant, revoke, subscription and other-app metadata preservation, write verification');

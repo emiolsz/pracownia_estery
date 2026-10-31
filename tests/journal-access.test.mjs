@@ -8,4 +8,6 @@ assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:'2027-01
 assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:'2026-10-30T00:00:00Z'},owner,now),false);
 assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:'invalid'},owner,now),false);
 assert.equal(journalAccess({email:'other@example.test',ebookAccessUntil:new Date(now).toISOString()},owner,now),false);
+assert.equal(journalAccess({email:'vip@example.test',isVip:true},owner,now),true);
+assert.equal(journalAccess({email:'vip@example.test',isVip:false},owner,now),false);
 console.log('PASS owner, guest, unpaid, active, expired, invalid and exact expiry');

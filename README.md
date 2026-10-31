@@ -55,3 +55,8 @@ ADMIN_EMAIL przypisuje rolę wyłącznie po potwierdzeniu e-maila w Supabase Aut
 Eksport GET /api/journal/export pobiera wyłącznie wpisy zalogowanej osoby z bazy; zwraca 401 bez sesji i 402 bez uprawnienia. Pojedyncze PDF i kopia JSON pozostają bezpłatne.
 Dla pozostałych planowana jest subskrypcja na 3 miesiące. Sprzedaż jest wyłączona do ustalenia ceny i odnowień oraz podłączenia płatności. Serwer weryfikuje przyszły termin w zaufanym Supabase app_metadata.estera_ebook_until, nigdy w user_metadata. Ten termin powinien zapisywać wyłącznie serwer po zweryfikowaniu płatności. Wygaśnięcie blokuje eksport zbiorczy, nie usuwa snów.
 Test uprawnień: node --experimental-transform-types tests/journal-access.test.mjs
+
+## VIP za lojalność
+W /admin właścicielka sprawdza zarejestrowane i potwierdzone konto po e-mailu, a następnie przyznaje/odbiera VIP. Tylko serwer i ADMIN_EMAIL mogą zmieniać status przez POST /api/admin/vip; endpoint nie zmienia roli Supabase ani subskrypcji. Zaufane app_metadata.estera_vip=true odblokowuje bezpłatny zbiorczy e-book PDF do wydruku, do odwołania. User metadata są ignorowane. Status jest sprawdzany na świeżo z Supabase Auth przy każdym eksporcie. Cofnięcie VIP nie usuwa snów ani wcześniej pobranych plików; płatne uprawnienie jest niezależne.
+
+Test VIP: `node --experimental-transform-types tests/vip-admin.test.mjs`. Test pełnych tras z lokalnym mockiem Supabase: po `npm run build` uruchom `node tests/vip-flow.test.mjs` (porty 3100/3101). Nie używa prawdziwych kont ani sekretów.

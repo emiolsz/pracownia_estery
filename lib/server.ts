@@ -5,7 +5,7 @@ export const json=(data:unknown,status=200)=>Response.json(data,{status,headers:
 export function mutation(request:Request){if(request.headers.get('origin')!==new URL(request.url).origin||request.headers.get('content-type')?.split(';')[0]!=='application/json')throw new Error('Nieprawidłowe źródło żądania.');}
 export async function user(){const u=await getChatGPTUser();if(!u)throw new Error('Zaloguj się, aby korzystać z dziennika.');return u;}
 export function isOwner(u:{email:string}|null){const owner=runtimeEnv().ADMIN_EMAIL;return !!(u&&owner&&u.email.toLowerCase()===owner.trim().toLowerCase());}
-export function canExportJournal(u:{email:string,ebookAccessUntil?:string|null}|null){return journalAccess(u,runtimeEnv().ADMIN_EMAIL);}
+export function canExportJournal(u:{email:string,ebookAccessUntil?:string|null,isVip?:boolean}|null){return journalAccess(u,runtimeEnv().ADMIN_EMAIL);}
 export async function admin(){const u=await user(),owner=runtimeEnv().ADMIN_EMAIL;if(!owner||u.email.toLowerCase()!==owner.toLowerCase())throw new Error('Panel redakcyjny wymaga dostępu administratorki.');return u;}
 export function text(value:unknown,max=10000){if(typeof value!=='string')throw new Error('Uzupełnij wymagane pole.');if(value.length>max)throw new Error('Treść jest zbyt długa. Skróć wpis albo podziel go na części.');return value.trim();}
 export const fail=(error:unknown,status=400)=>json({error:error instanceof Error?error.message:'Operacja nie powiodła się.'},status);
