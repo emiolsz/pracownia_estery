@@ -136,3 +136,7 @@ Synchroniczność przyjmuje również jedno- i dwucyfrowe liczby, np. `7`, `0`, 
 Opis Języka Aniołów obejmuje pojedyncze znaki, przykład 6 we śnie, dowolne kombinacje i powtórzenia cyfr jako symboliczne wzmocnienie motywu. Instrukcja AI wymaga zachowania kolejności cyfr i kontekstu oraz odróżniania powtórzeń od matematycznych wielokrotności.
 
 Korekta zakończenia wstępu Języka Aniołów: usunięto dwie linie pod 444, poprawiono wielką literę, polskie znaki i interpunkcję akapitu o osobistym słowniku symboli.
+
+
+### Podgląd pojedynczego PDF i neutralna nota
+Stała nota: „Potraktuj tę interpretację jako zaproszenie do refleksji w odniesieniu do własnych przeżyć i odczuć.” Dotyczy też liczb i symboli. Pojedyncze dokumenty otwierają podgląd z osobnym wyborem okładki (kość słoniowa lub granat, złote napisy i ramka), niezależnym od motywu ekranu. Pobierany jest ten sam Blob co w podglądzie; zmiana oprawy aktualizuje dokument. Domyślna jasna okładka ułatwia druk.
