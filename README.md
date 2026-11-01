@@ -124,3 +124,7 @@ Przełącznik pod wprowadzeniem: „Kość słoniowa” / „Granat”. Jasna we
 
 
 Karta „Język Aniołów”: zaakceptowany wariant z rozproszonymi, rozświetlonymi cząsteczkami za złotymi skrzydłami. Zastąpiono grafikę jezyk-aniolow.jpg, zachowując układ i pozostałe karty.
+
+
+### Wspólny motyw podstron
+Przełącznik „Kość słoniowa / Granat” jest dostępny we wspólnym układzie: na stronie głównej, w interpretatorach, dzienniku i kreatorze Księgi, Czytelni, kontakcie, logowaniu i administracji. Wybór jest pamiętany w tej przeglądarce (dotychczasowy klucz `estera.homeTheme.v1`). Kość słoniowa `#FDFBF7` ma granatowe napisy `#0C1425`; granat `#0C1425` ma złote napisy `#D6BB80`. Pola formularzy, wyniki i panele korzystają z tej samej palety, obramowania pozostają złote. Motyw strony nie zmienia obrazów kart ani wybranej oprawy generowanego PDF.
