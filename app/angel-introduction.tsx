@@ -17,7 +17,5 @@ export default function AngelIntroduction(){return <section className="dream-int
 <ul><li><strong>Wymiar uniwersalny:</strong> Trójka to liczba kreacji, radości, otwartej komunikacji i życiowego optymizmu.</li><li><strong>Przesłanie:</strong> Otacza Cię opieka i wsparcie przewodników duchowych. To idealny moment, by wyrazić siebie – poprzez sztukę, słowo lub odważne działanie. Twoja intuicja jest teraz wyjątkowo silna.</li></ul>
 <h2>444 – Twardy Fundament i Absolutna Ochrona</h2>
 <ul><li><strong>Wymiar uniwersalny:</strong> Czwórka odpowiada za materię, strukturę, bezpieczeństwo i owocną, stabilną pracę.</li><li><strong>Przesłanie:</strong> Nie masz się czego obawiać, jesteś w pełni bezpieczny. Twoje anioły i wszechświat budują wokół Ciebie ochronną tarczę. Wytrwaj w swoich postanowieniach, ponieważ Twoje wysiłki przyniosą trwałe rezultaty.</li></ul>
-<hr/>
-<hr/>
-<p>ale to ogolny język, liczby sa jak drogowskazy a jaki jest Twój osobisty ? Prowadząc dziennik stwórz własny slownik, zobacz jak i co jest powtarzalne. Zapisuj zarowno odczucia, jak i czego dany problem dotyczyl, znajdz wlasny osbisty kod</p>
+<p>Ale to ogólny język. Liczby są jak drogowskazy — a jaki jest Twój osobisty kod? Prowadząc dziennik, stwórz własny słownik i zobacz, jakie motywy się powtarzają. Zapisuj zarówno odczucia, jak i to, czego dotyczyła dana sytuacja. Znajdź własny, osobisty kod.</p>
 </section>;}
