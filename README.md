@@ -132,3 +132,5 @@ Przełącznik „Kość słoniowa / Granat” jest dostępny we wspólnym układ
 
 ### Naprawa interpretacji krótkich liczb
 Synchroniczność przyjmuje również jedno- i dwucyfrowe liczby, np. `7`, `0`, `34`. Wspólny wcześniejszy warunek minimum trzech znaków blokował je przed wywołaniem AI. Minimum trzech znaków dotyczy teraz wyłącznie opisu snu; synchroniczność wymaga niepustej treści. Okno wyniku jest pokazywane już na początku oczekiwania i po odpowiedzi/błędzie. Bezpośredni adres `/#liczby` otwiera Język Aniołów. Regresja: `node --experimental-strip-types tests/interpretation-input.test.mjs`.
+
+Opis Języka Aniołów obejmuje pojedyncze znaki, przykład 6 we śnie, dowolne kombinacje i powtórzenia cyfr jako symboliczne wzmocnienie motywu. Instrukcja AI wymaga zachowania kolejności cyfr i kontekstu oraz odróżniania powtórzeń od matematycznych wielokrotności.

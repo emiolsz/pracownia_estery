@@ -5,8 +5,10 @@ export default function AngelIntroduction(){return <section className="dream-int
 <p>Oto sprawdzony, trzystopniowy proces, który pozwoli Ci bezbłędnie czytać język synchroniczności:</p>
 <ol><li><strong>Zauważ i zatrzymaj się</strong> – nie ignoruj momentu, w którym świat materialny odpowiada na Twoje myśli.</li><li><strong>Sprawdź archetypowe znaczenie</strong> – zobacz, co dany symbol (np. cyfra czy motyw w przyrodzie) oznacza w uniwersalnym, wielowiekowym ujęciu.</li><li><strong>Uruchom klucz intuicyjny</strong> – nałóż ogólne znaczenie znaku na swoją osobistą sytuację życiową i emocje.</li></ol>
 <hr/>
-<h2>Uniwersalne Sekwencje Cyfr: Co Mówią Liczby Anielskie?</h2>
-<p>Współczesny język aniołów czerpie z klasycznej numerologii pitagorejskiej. Liczby występujące w potrójnych lub poczwórnych sekwencjach potęgują swoją pierwotną energię, niosąc jasny komunikat dla Twojego życia:</p>
+<h2>Pojedyncze cyfry i ich kombinacje — co mówią liczby anielskie?</h2>
+<p>Współczesny język aniołów czerpie z klasycznej numerologii pitagorejskiej. W tej tradycji symboliczne znaczenie może mieć już pojedyncza cyfra lub znak — także wtedy, gdy pojawia się we śnie. Nie trzeba zobaczyć trzech czy czterech takich samych cyfr, aby przyjrzeć się ich znaczeniu.</p>
+<p>Na przykład liczba 6 we śnie może zapraszać do refleksji nad troską, relacjami, domem, odpowiedzialnością i równowagą między dbaniem o innych a własnymi potrzebami. Jej osobiste znaczenie zależy od obrazu snu, towarzyszących emocji i Twoich skojarzeń.</p>
+<p>Powtórzenia tej samej cyfry, np. 6, 66, 666 lub 6666, odczytuje się w tej symbolice jako wzmocnienie jej podstawowego motywu. Różne kombinacje, takie jak 34, 36 czy 63, również mogą być punktem wyjścia do interpretacji: uwzględnia się poszczególne cyfry, ich kolejność i wzajemne zestawienie. Powtórzenie cyfry oznacza tu coś innego niż matematyczna wielokrotność liczby. Poniżej znajdziesz przykłady często opisywanych sekwencji:</p>
 <h2>111 lub 11:11 – Brama Manifestacji i Nowy Początek</h2>
 <ul><li><strong>Wymiar uniwersalny:</strong> Jedynka to iskra, impuls, pionierstwo i skupienie uwagi na własnej sprawczości.</li><li><strong>Przesłanie:</strong> Twoje myśli materializują się teraz w przyspieszonym tempie. To kosmiczne zielone światło, by zacząć od nowa i porzucić stare lęki. Skup się wyłącznie na tym, czego naprawdę pragniesz.</li></ul>
 <h2>222 – Kosmiczna Harmonia i Zaufanie do Procesu</h2>
