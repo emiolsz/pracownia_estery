@@ -121,3 +121,6 @@ Eksport przyjmuje includeIds (tylko własne sny, maksymalnie 500), coverStyle i 
 
 ## Dwa warianty strony głównej
 Przełącznik pod wprowadzeniem: „Kość słoniowa” / „Granat”. Jasna wersja używa #FDFBF7 i granatowych napisów #0C1425. Ciemna: tło #0C1425 z palety kart i złote napisy #D6BB80, obramowania #B79A60. Układ, logo i oryginalne grafiki kart pozostają zachowane. Wybór jest zapamiętywany lokalnie (estera.homeTheme.v1), bez zmiany danych konta. Motyw dotyczy strony głównej, jej nagłówka i stopki; po przejściu do dziennika, formularza lub panelu wraca dotychczasowa paleta tych widoków. Nie zmienia motywu okładki PDF ani oprawy zapisanej Księgi.
+
+
+Karta „Język Aniołów”: zaakceptowany wariant z rozproszonymi, rozświetlonymi cząsteczkami za złotymi skrzydłami. Zastąpiono grafikę jezyk-aniolow.jpg, zachowując układ i pozostałe karty.
