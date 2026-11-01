@@ -99,3 +99,7 @@ Dwie okładki: granat #0C1425 lub kość słoniowa #FDFBF7; obie mają złote na
 Stałe zdanie widoku i PDF: „Potraktuj tę interpretację jako zaproszenie do refleksji — znaczenie snu odkrywasz w odniesieniu do własnych przeżyć i odczuć.” AI otrzymuje polecenie niedodawania własnego wariantu tej noty. Poprzednie interpretacje nie są samoczynnie przepisywane. Dotychczasowe rozmiary fontów zachowane; podpis 29 pt w PDF.
 
 Sprawdzenie: npm run build; node tests/journal-edit-flow.test.mjs; node --experimental-transform-types tests/journal-person.test.mjs. Testy używają sztucznych kont i bazy lokalnej; nie modyfikują prawdziwych snów.
+
+
+## Wyszukiwanie snów na stronie
+W „Mój dziennik” sekcja „Znajdź sen do edycji” zawiera pole „Szukaj w moich snach”. Filtruje tytuł, opis, emocje i interpretację bez rozróżniania wielkości liter ani polskich znaków (np. „lodz” odnajdzie „Łódź”). Wyszukiwanie działa lokalnie w przeglądarce na własnych pobranych wpisach, bez przekazywania frazy do AI. Uwzględnia bieżący zakres dat i sortowanie. Wyniki zawierają fragment dopasowanego tekstu; „Czytaj / edytuj” prowadzi do dotychczasowych działań. Wyszukiwanie nie zmienia wyboru do wydruku ani numeracji PDF. Pusta fraza i „Wyczyść wyszukiwanie” przywracają listę w bieżącym okresie. Brak dopasowań daje komunikat i możliwość zmiany frazy lub dat. Gość widzi sekcję z informacją o konieczności logowania. Test: node tests/journal-search.test.mjs.

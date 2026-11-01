@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {journalSearchMatch,journalSearchExcerpt} from '../lib/journal-search.mjs';
+const entry={title:'Łódź na rzece',story:'Przechodziłam przez drewniany most i patrzyłam na wodę.',feeling:'Zaciekawienie',interpretation:'Możliwy początek nowego etapu.'};
+for(const q of ['LODZ','przechodzilam','ZACIEKAWIENIE','nowego etapu','   '])assert.equal(journalSearchMatch(entry,q),true,q);
+assert.equal(journalSearchMatch(entry,'nieobecny fragment'),false);
+assert.match(journalSearchExcerpt(entry,'most'),/^Sen: .*most/);
+assert.match(journalSearchExcerpt(entry,'nowego etapu'),/^Interpretacja:/);
+assert.equal(journalSearchExcerpt(entry,'nieobecny fragment'),'');
+assert.equal(journalSearchMatch({title:'<b>Most</b>'},'<b>'),true);
+console.log('PASS Polish/case insensitive search, all editable fields, literal phrases, excerpts and no matches');
