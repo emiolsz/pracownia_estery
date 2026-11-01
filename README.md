@@ -107,3 +107,13 @@ W „Mój dziennik” sekcja „Znajdź sen do edycji” zawiera pole „Szukaj 
 
 ## Uproszczony wybór płci K/M/X
 Formularz snu, ustawienia dziennika i logowanie pokazują etykietę „Płeć” oraz wyłącznie opcje K, M, X. K oznacza kobietę, M mężczyznę, X brak deklaracji / zwrot neutralny. Techniczne informacje o formach językowych usunięto z formularza. API interpretacji otrzymuje kod K/M/X; serwer mapuje go na instrukcję odpowiednio żeńską, męską lub neutralną. Mapowanie nie jest objaśnieniem widocznym dla odbiorcy. Zapisane wcześniej wartości female/male/neutral pozostają kompatybilne, więc zmiana interfejsu nie kasuje preferencji. Przy logowaniu bez zmiany pola zachowujemy dotychczasową preferencję konta. X nie powoduje zgadywania płci na podstawie imienia lub treści snu.
+
+
+## Indywidualna Księga Snów - kreator i rzeczywisty podgląd PDF
+Zapis snu w dzienniku jest niezależny od druku. Okładka i czcionka nie są wybierane w formularzu zapisu. W dzienniku przycisk „Przygotuj Indywidualną Księgę Snów” otwiera osobny kreator: wybór snów, dat i kolejności, imię, okładka granatowa/jasna oraz treść DejaVu Sans/Lora. Pojedynczy sen nadal można pobrać oddzielnie.
+
+„Pokaż podgląd Księgi” generuje pełny PDF przez istniejący, chroniony eksport. Podgląd w osadzonym czytniku i pobieranie korzystają z tego samego obiektu PDF. Czytnik przeglądarki umożliwia nawigację i powiększanie; alternatywą jest otwarcie PDF w nowej karcie. Po pierwszym uruchomieniu podgląd aktualizuje się po zmianie ustawień (450 ms zwłoki, anulowanie poprzednich żądań). Pobieranie starego podglądu jest blokowane podczas aktualizacji lub błędu. Uprawnienia do zbiorczego e-booka pozostają bez zmian.
+
+„Zapisz roboczą Księgę” zapisuje na koncie jeden szkic: własny wybór identyfikatorów snów, zakres dat, kolejność, imię, okładkę i czcionkę. API /api/journal/draft obsługuje GET i POST; wymaga sesji, kontroluje źródło zapisu i waliduje pola. Zapis dotyczy tylko estera_book_draft w user_metadata; nie zmienia ról, VIP, treści snów ani preferencji języka. Szkic można wczytać ponownie także na innym urządzeniu. Nie zawiera kopii treści snów: następny podgląd użyje ich najnowszego zapisu; usunięte wpisy zostaną pominięte. Nie zapisujemy gotowego PDF jako zamrożonej wersji książki.
+
+Eksport przyjmuje includeIds (tylko własne sny, maksymalnie 500), coverStyle i fontStyle oraz imię. Numery stron i spis treści są przeliczane dla końcowego wyboru i czcionki. Wykluczenia wcześniejszego eksportu nadal są obsługiwane dla kompatybilności. Testy: node tests/book-builder-flow.test.mjs po npm run build.
