@@ -1,4 +1,6 @@
 export type JournalGender='female'|'male'|'neutral';
-export function journalGender(value:unknown):JournalGender{return value==='female'||value==='male'?value:'neutral';}
+export function journalGender(value:unknown):JournalGender{return value==='female'||value==='K'?'female':value==='male'||value==='M'?'male':'neutral';}
 export function journalName(value:unknown){if(typeof value!=='string'||value.trim().length>60||/[\u0000-\u001f\u007f]/.test(value))throw new Error('Podaj imię do sennika — do 60 znaków.');return value.trim();}
 export function genderInstruction(value:unknown){switch(journalGender(value)){case'female':return 'Zwracaj się do odbiorczyni w żeńskiej formie językowej: czułaś, mogłaś, zauważyłaś. Nie używaj form męskich ani wariantów z ukośnikiem.';case'male':return 'Zwracaj się do odbiorcy w męskiej formie językowej: czułeś, mogłeś, zauważyłeś. Nie używaj form żeńskich ani wariantów z ukośnikiem.';default:return 'Używaj neutralnych płciowo sformułowań: co towarzyszyło Ci we śnie, jakie emocje się pojawiły. Unikaj form czułaś/czułeś i nie zgaduj płci odbiorcy.';}}
+
+export function journalGenderCode(value:unknown):'K'|'M'|'X'{const gender=journalGender(value);return gender==='female'?'K':gender==='male'?'M':'X';}
