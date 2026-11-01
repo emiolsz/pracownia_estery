@@ -4,7 +4,7 @@ Strona z trzema kafelkami, bezpłatnym sennikiem, językiem aniołów, czytelni�
 
 ## Publikacja na Vercelu
 
-Repozytorium: `emiolsz/estera`, gałąź `main`, Root Directory: katalog główny (puste pole), Framework: **Next.js**. Konfiguracja `vercel.json` ustawia instalację `npm ci`, budowanie `npm run build` i wynik `.next`. Usuń wcześniejsze ręczne nadpisania poleceń instalacji/budowania lub Output Directory w ustawieniach projektu. Nie ustawiaj `dist` ani `vinext build`.
+Repozytorium: `emiolsz/pracownia_estery`, gałąź `main`, Root Directory: katalog główny (puste pole), Framework: **Next.js**. Konfiguracja `vercel.json` ustawia instalację `npm ci`, budowanie `npm run build` i wynik `.next`. Usuń wcześniejsze ręczne nadpisania poleceń instalacji/budowania lub Output Directory w ustawieniach projektu. Nie ustawiaj `dist` ani `vinext build`.
 
 Bez kluczy strona może się skompilować i pokazać kafelki, formularz snu oraz pobieranie PDF z wpisaną treścią. To nie oznacza jeszcze uruchomienia AI, poczty ani dziennika.
 
@@ -82,3 +82,20 @@ Imię i płeć/forma językowa są pytane przy logowaniu oraz w ustawieniach dzi
 PATCH /api/dreams aktualizuje wyłącznie własny wpis po id i owner; redakcja obejmuje datę, tytuł, opis, emocje i interpretację. Formularz zachowuje starą interpretację podczas korekty opisu oraz w razie nieudanej ponownej interpretacji. Zapis aktualizuje ten sam wpis zamiast tworzyć kopię.
 Dziennik ma filtr Od/Do oraz wybór kolejności asc/desc. Eksport /api/journal/export przyjmuje from, to, order, weryfikuje daty i filtruje tylko własne sny. Zakres pozostaje chronologicznie poprawny niezależnie od kierunku sortowania.
 Nowy PDF używa oryginalnego logo i grafiki Sennik, granatowo-złotej okładki z imieniem, Lory, kremowych stron, stałej stopki i automatycznej numeracji każdej strony. Pełny e-book ma wprowadzenie, spis treści z rzeczywistymi stronami, wpisy i strony refleksji. Poprzednio pobrane pliki nie są nadpisywane. Testy: tests/journal-person.test.mjs i tests/journal-edit-flow.test.mjs (po npm run build).
+
+
+## Edycja przed wydrukiem - 1 listopada 2026
+
+W „Mój dziennik” rozwiń „Czytaj / edytuj”. „Edytuj sen / interpretuj ponownie” otwiera ten sam wpis w formularzu: można poprawić tytuł, datę, opis, emocje i interpretację. Zapis używa PATCH własnego wpisu, nie tworzy duplikatu. Sama korekta nie wywołuje AI. Po zmianie opisu, emocji lub formy językowej pojawia się informacja o możliwości ponownej interpretacji. „Interpretuj ponownie” przekazuje pełny aktualny opis i wybraną formę językową; wymaga zgody i korzysta ze zwykłego limitu AI. Błąd zachowuje poprzedni wynik; nowy wynik należy zapisać w dzienniku.
+
+Checkbox „Uwzględnij ten sen w wydruku” pomija wpis tylko w aktualnym wyborze PDF. Zapis pozostaje w dzienniku. Wybór obowiązuje podczas bieżącej sesji widoku i można go odwrócić przez „Przywróć wszystkie do wydruku”; odświeżenie strony przywraca pełny wybór. „Usuń z dziennika” jest odrębną operacją z potwierdzeniem. Eksport POST /api/journal/export przyjmuje excludeIds (do 500 UUID) i coverStyle (navy/cream), kontroluje sesję, źródło żądania i uprawnienie do e-booka; pobiera tylko własne sny. Filtr dat i kolejność działają razem z wyborem. Spis treści, numeracja snów i stron są generowane po pominięciu wpisów.
+
+## Formularz i oprawa sennika
+
+Formularz zawiera imię, płeć/formę językową oraz potwierdzony adres konta (tylko do odczytu; zmiana adresu nie może omijać weryfikacji logowania). Gość podaje e-mail przy logowaniu, a sam PDF może pobrać bez konta. E-mail i imię nie są wysyłane do AI. Płeć/formę przekazujemy bezpośrednio do instrukcji AI; nie zgadujemy jej z imienia ani postaci ze snu. Nowa interpretacja ma kolejno perspektywę duchową i symboliczną, ujęcie Junga, krótkie podsumowanie i pytania do refleksji; bez powitań i pochwał.
+
+Dwie okładki: granat #0C1425 lub kość słoniowa #FDFBF7; obie mają złote napisy i ramkę #B79A60. Wnętrze ma tło #FDFBF7, tytuły Lora i treść DejaVu Sans. Logo i trzy różne grafiki kart Pracowni pozostają oryginalne, bez ujednolicania ich odcieni. Wstęp jest pełnym tekstem autorki, po nim „Jak korzystać z sennika” oraz podpis „Z miłością, Estera” fontem Allura (SIL OFL, lokalny podzbiór znaków podpisu). Ze wstępu usunięto imienny nagłówek, liczbę wpisów i okres; pozostają one na okładce lub w pozostałych elementach dokumentu. Spis treści: Sen / Tytuł / Data / Strona. Stała stopka i automatyczna numeracja na każdej stronie.
+
+Stałe zdanie widoku i PDF: „Potraktuj tę interpretację jako zaproszenie do refleksji — znaczenie snu odkrywasz w odniesieniu do własnych przeżyć i odczuć.” AI otrzymuje polecenie niedodawania własnego wariantu tej noty. Poprzednie interpretacje nie są samoczynnie przepisywane. Dotychczasowe rozmiary fontów zachowane; podpis 29 pt w PDF.
+
+Sprawdzenie: npm run build; node tests/journal-edit-flow.test.mjs; node --experimental-transform-types tests/journal-person.test.mjs. Testy używają sztucznych kont i bazy lokalnej; nie modyfikują prawdziwych snów.

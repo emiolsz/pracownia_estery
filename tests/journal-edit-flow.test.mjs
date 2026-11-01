@@ -16,5 +16,12 @@ assert.equal((await call('dreams','PATCH',payload)).status,200);assert.equal(wri
 assert.equal((await call('dreams','PATCH',{...payload,id:foreignId})).status,404);assert.equal(writes,1);
 assert.notEqual((await call('dreams','PATCH',payload,false)).status,200);assert.equal(writes,1);
 const exported=await call('journal/export?from=2026-01-01&to=2026-12-31');assert.equal(exported.status,200);assert.ok(lastQuery.includes('dream_date=gte.2026-01-01'));assert.ok(lastQuery.includes('dream_date=lte.2026-12-31'));assert.ok(lastQuery.includes('owner=eq.'+id));const pdf=await PDFDocument.load(await exported.arrayBuffer());assert.equal(pdf.getTitle(),'Sennik - Emilia');assert.equal((await call('journal/export?from=2026-12-31&to=2026-01-01')).status,400);assert.equal((await call('journal/export?from=2026-02-30')).status,400);assert.equal((await call('journal/export?order=desc')).status,200);assert.ok(lastQuery.includes('order=dream_date.desc,created_at.desc'));assert.equal((await call('journal/export?order=invalid')).status,400);
+assert.equal((await call('journal/export','POST',{excludeIds:[entryId],coverStyle:'cream'})).status,400);
+assert.equal((await call('journal/export','POST',{excludeIds:[],coverStyle:'cream'})).status,200);
+assert.equal((await call('journal/export','POST',{excludeIds:[foreignId],coverStyle:'navy'})).status,200);
+assert.equal((await call('journal/export','POST',{excludeIds:['invalid'],coverStyle:'navy'})).status,400);
+assert.equal((await call('journal/export','POST',{excludeIds:[],coverStyle:'unknown'})).status,400);
+assert.equal((await call('journal/export','POST',{excludeIds:[],coverStyle:'cream'},false)).status,401);
+console.log('PASS print exclusions, empty selection rejected, foreign IDs never expose data, cover validation, guest export blocked');
 console.log('PASS own profile name/gender, privilege fields ignored, edit updates same dream, owner filter mandatory, foreign entry404, guest blocked');
 }finally{child.kill('SIGTERM');mock.close();}

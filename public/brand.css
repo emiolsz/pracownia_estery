@@ -81,3 +81,5 @@ h1,.offer h2,.product-detail h1{font-family:Georgia,'Times New Roman',serif}
 
 /* Zatwierdzone zestawienia raportów. */
 .report-table-wrap{overflow-x:auto;margin:1rem 0 1.5rem}.report-values{border-collapse:collapse;width:100%;font:inherit;font-size:.9rem}.report-values th,.report-values td{padding:.65rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--gold,#ab8b50)}.report-values th{background:rgba(171,139,80,.09)}
+
+@font-face{font-family:EsteraSignature;src:url(/fonts/allura.ttf) format("truetype");font-display:swap}.estera-handwritten{font-family:EsteraSignature,cursive!important;font-size:36px!important;color:#B79A60!important;text-align:right;transform:rotate(-4deg);margin:24px 12px 35px}.dream-introduction{max-width:850px;margin:24px auto 40px}.dream-introduction ol{padding-left:24px}.dream-introduction li{margin:10px 0}
