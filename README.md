@@ -117,3 +117,7 @@ Zapis snu w dzienniku jest niezależny od druku. Okładka i czcionka nie są wyb
 „Zapisz roboczą Księgę” zapisuje na koncie jeden szkic: własny wybór identyfikatorów snów, zakres dat, kolejność, imię, okładkę i czcionkę. API /api/journal/draft obsługuje GET i POST; wymaga sesji, kontroluje źródło zapisu i waliduje pola. Zapis dotyczy tylko estera_book_draft w user_metadata; nie zmienia ról, VIP, treści snów ani preferencji języka. Szkic można wczytać ponownie także na innym urządzeniu. Nie zawiera kopii treści snów: następny podgląd użyje ich najnowszego zapisu; usunięte wpisy zostaną pominięte. Nie zapisujemy gotowego PDF jako zamrożonej wersji książki.
 
 Eksport przyjmuje includeIds (tylko własne sny, maksymalnie 500), coverStyle i fontStyle oraz imię. Numery stron i spis treści są przeliczane dla końcowego wyboru i czcionki. Wykluczenia wcześniejszego eksportu nadal są obsługiwane dla kompatybilności. Testy: node tests/book-builder-flow.test.mjs po npm run build.
+
+
+## Dwa warianty strony głównej
+Przełącznik pod wprowadzeniem: „Kość słoniowa” / „Granat”. Jasna wersja używa #FDFBF7 i granatowych napisów #0C1425. Ciemna: tło #0C1425 z palety kart i złote napisy #D6BB80, obramowania #B79A60. Układ, logo i oryginalne grafiki kart pozostają zachowane. Wybór jest zapamiętywany lokalnie (estera.homeTheme.v1), bez zmiany danych konta. Motyw dotyczy strony głównej, jej nagłówka i stopki; po przejściu do dziennika, formularza lub panelu wraca dotychczasowa paleta tych widoków. Nie zmienia motywu okładki PDF ani oprawy zapisanej Księgi.
