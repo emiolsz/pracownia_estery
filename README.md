@@ -140,3 +140,6 @@ Korekta zakończenia wstępu Języka Aniołów: usunięto dwie linie pod 444, po
 
 ### Podgląd pojedynczego PDF i neutralna nota
 Stała nota: „Potraktuj tę interpretację jako zaproszenie do refleksji w odniesieniu do własnych przeżyć i odczuć.” Dotyczy też liczb i symboli. Pojedyncze dokumenty otwierają podgląd z osobnym wyborem okładki (kość słoniowa lub granat, złote napisy i ramka), niezależnym od motywu ekranu. Pobierany jest ten sam Blob co w podglądzie; zmiana oprawy aktualizuje dokument. Domyślna jasna okładka ułatwia druk.
+
+
+Pojedynczy wpis PDF jest przygotowywany bez okładki; podgląd nie pokazuje wtedy wyboru tła. Zbiory kilku wpisów i Księgi mają okładkę. Okładka Języka Aniołów wykorzystuje zatwierdzoną kartę ze złotymi skrzydłami i świetlistymi cząsteczkami. AI otrzymuje wymóg najwyżej dwóch pytań, związanych z wpisem, bez dopowiadania emocji czy okoliczności.
