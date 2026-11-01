@@ -28,7 +28,7 @@ export default function Studio({adminMode=false}:{adminMode?:boolean}){
  async function loadEditors(){const result=await api('admin/editors');setEditors(result.editors);}
  const signin='/logowanie?return_to='+encodeURIComponent(adminMode?'/admin':'/');
  async function refresh(){const me=await api('me');setProfile(me);if(!personLoaded.current&&me.user){personLoaded.current=true;if(!personTouched.current){setPersonName(me.user.journalName||'');setPersonGender(me.user.gender||'neutral');savedPerson.current=JSON.stringify({name:me.user.journalName||'',gender:me.user.gender||'neutral'});}}if(me.user){setEntries(await api('dreams'));}setArticles(await api(adminMode&&(me.isAdmin||me.isEditor)?'articles?edit=1':'articles'));}
- useEffect(()=>{const hash=location.hash;if(hash==='#dziennik')setView('diary');else if(hash==='#sen')setView('dream');else if(hash==='#czytelnia')setView('reading');refresh().catch(e=>setMessage(e.message));},[]);
+ useEffect(()=>{const hash=location.hash;if(hash==='#dziennik')setView('diary');else if(hash==='#sen')setView('dream');else if(hash==='#czytelnia')setView('reading');else if(hash==='#liczby')setView('numbers');refresh().catch(e=>setMessage(e.message));},[]);
  function open(next:string){setView(next);setMessage('');window.scrollTo({top:0,behavior:'smooth'});}
  async function run(fn:()=>Promise<void>){setMessage('');setBusy(true);try{await fn();}catch(e){setMessage(e instanceof Error?e.message:'Operacja nie powiodła się.');}finally{setBusy(false);}}
  async function requestInterpretation(kind:'dream'|'numbers'){
@@ -37,6 +37,7 @@ export default function Studio({adminMode=false}:{adminMode?:boolean}){
   const resultState=kind==='dream'?setAnswer:setNumberAnswer;
   const frameId=kind==='dream'?'dream-interpretation':'numbers-interpretation';
   errorState('');resultState('');setInterpreting(true);
+  requestAnimationFrame(()=>document.getElementById(frameId)?.scrollIntoView({behavior:'smooth',block:'start'}));
   try{
    const result=await api('interpret','POST',kind==='dream'?{kind,story,feeling,contextIds:selected,consent,gender:journalGenderCode(personGender)}:{kind,story:numbers,feeling:numberContext,consent,gender:journalGenderCode(personGender)});
    if(typeof result.interpretation!=='string'||!result.interpretation.trim())throw new Error('Nie otrzymano treści interpretacji. Spróbuj ponownie.');

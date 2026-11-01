@@ -128,3 +128,7 @@ Karta „Język Aniołów”: zaakceptowany wariant z rozproszonymi, rozświetlo
 
 ### Wspólny motyw podstron
 Przełącznik „Kość słoniowa / Granat” jest dostępny we wspólnym układzie: na stronie głównej, w interpretatorach, dzienniku i kreatorze Księgi, Czytelni, kontakcie, logowaniu i administracji. Wybór jest pamiętany w tej przeglądarce (dotychczasowy klucz `estera.homeTheme.v1`). Kość słoniowa `#FDFBF7` ma granatowe napisy `#0C1425`; granat `#0C1425` ma złote napisy `#D6BB80`. Pola formularzy, wyniki i panele korzystają z tej samej palety, obramowania pozostają złote. Motyw strony nie zmienia obrazów kart ani wybranej oprawy generowanego PDF.
+
+
+### Naprawa interpretacji krótkich liczb
+Synchroniczność przyjmuje również jedno- i dwucyfrowe liczby, np. `7`, `0`, `34`. Wspólny wcześniejszy warunek minimum trzech znaków blokował je przed wywołaniem AI. Minimum trzech znaków dotyczy teraz wyłącznie opisu snu; synchroniczność wymaga niepustej treści. Okno wyniku jest pokazywane już na początku oczekiwania i po odpowiedzi/błędzie. Bezpośredni adres `/#liczby` otwiera Język Aniołów. Regresja: `node --experimental-strip-types tests/interpretation-input.test.mjs`.
