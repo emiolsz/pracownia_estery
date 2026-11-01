@@ -140,3 +140,7 @@ Korekta zakończenia wstępu Języka Aniołów: usunięto dwie linie pod 444, po
 
 ### Podgląd pojedynczego PDF i neutralna nota
 Stała nota: „Potraktuj tę interpretację jako zaproszenie do refleksji w odniesieniu do własnych przeżyć i odczuć.” Dotyczy też liczb i symboli. Pojedyncze dokumenty otwierają podgląd z osobnym wyborem okładki (kość słoniowa lub granat, złote napisy i ramka), niezależnym od motywu ekranu. Pobierany jest ten sam Blob co w podglądzie; zmiana oprawy aktualizuje dokument. Domyślna jasna okładka ułatwia druk.
+
+
+### Zbiorowy wydruk synchroniczności
+Osobne archiwum konta: `/api/synchronicities`, tabela `estera_synchronicities`. Wymaga zastosowania migracji `supabase/migrations/202611020001_synchronicities.sql` przed korzystaniem z zapisu. Każde żądanie filtruje właściciela z sesji. Formularz zapisuje i aktualizuje ten sam wpis; archiwum pozwala wybrać daty Od/Do i kolejność, a zbiorowy PDF ma okładkę, spis wpisów, daty i numerację stron. Zbiorowy PDF korzysta ze wspólnego wyboru okładki i podglądu. Sny pozostają w osobnej tabeli.
