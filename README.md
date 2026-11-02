@@ -160,3 +160,5 @@ Zatwierdzony podgląd pyłu wdrożony: Sennik 99 złotych drobinek, Język Anio�
 - Wszystkie trzy karty otwierają cel po 4,3 s od kliknięcia.
 - Przy systemowym ograniczeniu ruchu animacje i opóźnienie są pomijane. Język Aniołów w jasnym motywie otwiera się bez pyłu i opóźnienia.
 Ta sekcja zastępuje wcześniejsze historyczne czasy 650/950 ms.
+
+W zaproszeniu do Kodu Duszy usunięto pierwsze zdanie o snach i liczbach. Pod nim działa bezpośrednie przejście między formularzami: z Języka Aniołów do Sennika i z Sennika do Języka Aniołów, bez powrotu na stronę główną. Treści wpisane w formularzach pozostają zachowane podczas przełączania.
