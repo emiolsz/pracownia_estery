@@ -147,3 +147,5 @@ Pojedynczy wpis PDF jest przygotowywany bez okładki; podgląd nie pokazuje wted
 Na granatowym motywie kliknięcie karty Język Aniołów porusza biało-złote drobinki światła wokół skrzydeł; po krótkiej animacji otwiera formularz. Efekt nie blokuje kliknięć ani nie zmienia grafiki. Preferencja ograniczenia ruchu wyłącza animację i opóźnienie.
 
 Kliknięcie Sennika uruchamia złoty pył w obu motywach; Język Aniołów na granacie ma osobny biało-złoty pył.
+
+Karta Kod Duszy ma efekt z kodu Soul Decoder Estera (`public_site/app.mjs`, `public_site/style.css`): trzy fale co 110 ms, 12 złotych drobinek, poświata i przejście do strony po 950 ms. Wspólne klasy `water-ripple`, `water-echo`, `is-activated` zachowują oryginalne parametry. Preferencja ograniczenia ruchu i otwieranie linku z klawiszami modyfikującymi zachowują zwykłą nawigację.
