@@ -108,3 +108,11 @@ html[data-home-theme] .magazine-topics button[aria-pressed=true]{color:var(--the
 html[data-home-theme] .book-entry-list small{color:var(--theme-text)}
 html[data-home-theme] input[type=checkbox]{accent-color:#B79A60}
 html[data-home-theme] :is(a,button,input,select,textarea,summary):focus-visible{outline-color:#B79A60}
+
+/* Świetlisty pył zaakceptowanej karty Język Aniołów na granatowym tle. */
+.angel-dust-cloud{position:fixed;inset:0;z-index:100;pointer-events:none;overflow:hidden}
+.angel-dust-mote{position:absolute;width:var(--dust-size);height:var(--dust-size);border-radius:50%;background:#fff8df;box-shadow:0 0 5px #fff5d8,0 0 12px #d6bb80;opacity:0;animation:angel-dust-stir 1.1s ease-out var(--dust-delay) forwards}
+@keyframes angel-dust-stir{0%{opacity:0;transform:translate(0,0) scale(.5)}18%{opacity:1}50%{opacity:.9;transform:translate(calc(var(--dust-x)*.45),calc(var(--dust-y)*.35 - 12px)) scale(1.3)}100%{opacity:0;transform:translate(var(--dust-x),var(--dust-y)) scale(.15)}}
+@media(prefers-reduced-motion:reduce){.angel-dust-cloud{display:none}}
+
+.dream-gold-dust .angel-dust-mote{background:#efc45e;box-shadow:0 0 5px #efc45e,0 0 13px #b79a60}

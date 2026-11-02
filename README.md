@@ -143,3 +143,7 @@ Stała nota: „Potraktuj tę interpretację jako zaproszenie do refleksji w odn
 
 
 Pojedynczy wpis PDF jest przygotowywany bez okładki; podgląd nie pokazuje wtedy wyboru tła. Zbiory kilku wpisów i Księgi mają okładkę. Okładka Języka Aniołów wykorzystuje zatwierdzoną kartę ze złotymi skrzydłami i świetlistymi cząsteczkami. AI otrzymuje wymóg najwyżej dwóch pytań, związanych z wpisem, bez dopowiadania emocji czy okoliczności.
+
+Na granatowym motywie kliknięcie karty Język Aniołów porusza biało-złote drobinki światła wokół skrzydeł; po krótkiej animacji otwiera formularz. Efekt nie blokuje kliknięć ani nie zmienia grafiki. Preferencja ograniczenia ruchu wyłącza animację i opóźnienie.
+
+Kliknięcie Sennika uruchamia złoty pył w obu motywach; Język Aniołów na granacie ma osobny biało-złoty pył.
