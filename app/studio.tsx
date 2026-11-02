@@ -38,13 +38,13 @@ export default function Studio({adminMode=false}:{adminMode?:boolean}){
  function openSoulCard(event:MouseEvent<HTMLAnchorElement>){
   if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   const art=event.currentTarget.querySelector<HTMLElement>('.art');if(!art)return;
-  event.preventDefault();const destination=event.currentTarget.href;art.classList.add('is-activated');
+  event.preventDefault();const destination=event.currentTarget.href;art.classList.add('is-activated');art.style.animationDuration='4s';
   const rect=art.getBoundingClientRect(),keyboard=event.detail===0;
   const x=keyboard?rect.width/2:Math.max(0,Math.min(rect.width,event.clientX-rect.left));
   const y=keyboard?rect.height/2:Math.max(0,Math.min(rect.height,event.clientY-rect.top));
-  for(let i=0;i<3;i++){const ripple=document.createElement('i');ripple.className='water-ripple';ripple.setAttribute('aria-hidden','true');ripple.style.cssText=`left:${x}px;top:${y}px;animation-delay:${i*110}ms`;art.append(ripple);setTimeout(()=>ripple.remove(),1400);}
+  for(let i=0;i<3;i++){const ripple=document.createElement('i');ripple.className='water-ripple';ripple.setAttribute('aria-hidden','true');ripple.style.cssText=`left:${x}px;top:${y}px;animation-delay:${i*110}ms;animation-duration:3.8s`;art.append(ripple);setTimeout(()=>ripple.remove(),4500);}
   for(let i=0;i<12;i++){const dot=document.createElement('i');dot.className='gold-particle';dot.setAttribute('aria-hidden','true');const angle=i*2.399963,radius=32+i%6*10;dot.style.cssText=`--dx:${Math.cos(angle)*radius}px;--dy:${Math.sin(angle)*radius-35}px;left:${16+(i*37)%70}%;top:${25+(i*23)%55}%;animation-delay:${i%4*20}ms`;art.append(dot);setTimeout(()=>dot.remove(),900);}
-  setTimeout(()=>{art.classList.remove('is-activated');location.assign(destination);},950);
+  setTimeout(()=>{art.classList.remove('is-activated');art.style.animationDuration='';location.assign(destination);},4300);
  }
  function openCardWithDust(event:MouseEvent<HTMLAnchorElement>,kind:'dream'|'numbers'){
   event.preventDefault();
