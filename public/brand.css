@@ -111,8 +111,6 @@ html[data-home-theme] :is(a,button,input,select,textarea,summary):focus-visible{
 
 /* Świetlisty pył zaakceptowanej karty Język Aniołów na granatowym tle. */
 .angel-dust-cloud{position:fixed;inset:0;z-index:100;pointer-events:none;overflow:hidden}
-.angel-dust-mote{position:absolute;width:var(--dust-size);height:var(--dust-size);border-radius:50%;background:#fff8df;box-shadow:0 0 5px #fff5d8,0 0 12px #d6bb80;opacity:0;animation:angel-dust-stir 1.1s ease-out var(--dust-delay) forwards}
-@keyframes angel-dust-stir{0%{opacity:0;transform:translate(0,0) scale(.5)}18%{opacity:1}50%{opacity:.9;transform:translate(calc(var(--dust-x)*.45),calc(var(--dust-y)*.35 - 12px)) scale(1.3)}100%{opacity:0;transform:translate(var(--dust-x),var(--dust-y)) scale(.15)}}
+.angel-dust-mote{position:absolute;width:var(--dust-size);height:var(--dust-size);border-radius:50%;background:var(--dust-tone);box-shadow:0 0 5px var(--dust-tone),0 0 13px var(--dust-tone);opacity:0;animation:angel-dust-stir 4s cubic-bezier(.18,.52,.45,1) var(--dust-delay) both}
+@keyframes angel-dust-stir{0%{opacity:0;transform:translate(0,0) scale(.3)}8%{opacity:1;transform:translate(calc(var(--dust-x)*.28),-22px) scale(1.4)}28%{opacity:.95;transform:translate(calc(var(--dust-x)*.65),-35px) scale(1)}60%{opacity:.8;transform:translate(calc(var(--dust-x)*.85),calc(var(--dust-y)*.35)) scale(.8)}85%{opacity:.4}100%{opacity:0;transform:translate(var(--dust-x),var(--dust-y)) scale(.15)}}
 @media(prefers-reduced-motion:reduce){.angel-dust-cloud{display:none}}
-
-.dream-gold-dust .angel-dust-mote{background:#efc45e;box-shadow:0 0 5px #efc45e,0 0 13px #b79a60}

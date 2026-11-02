@@ -15,6 +15,8 @@ type Entry={id:string,title:string,dream_date:string,story:string,feeling:string
 type Profile={user:{name:string,email:string,journalName?:string,gender?:JournalGender}|null,aiProvider?:'google'|'openai'|null,aiReady:boolean,emailReady:boolean,isAdmin:boolean,isVip:boolean,isEditor:boolean,editorUntil?:string|null,journalExportAllowed:boolean};
 async function api(path:string,method='GET',body?:unknown){const r=await fetch('/api/'+path,{method,headers:{'Content-Type':'application/json'},cache:'no-store',...(body===undefined?{}:{body:JSON.stringify(body)})});const data:any=await r.json();if(!r.ok)throw Error(data.error||'Operacja nie powiodła się.');return data;}
 export default function Studio({adminMode=false}:{adminMode?:boolean}){
+ const dustTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
+ useEffect(()=>()=>{if(dustTimer.current)clearTimeout(dustTimer.current);document.querySelectorAll('.angel-dust-cloud').forEach(node=>node.remove());},[]);
  const [printCover,setPrintCover]=useState<'navy'|'cream'>('cream'),[printRequest,setPrintRequest]=useState<{entries?:unknown[]}|null>(null);
  const [view,setView]=useState('home'),[profile,setProfile]=useState<Profile|null>(null),[entries,setEntries]=useState<Entry[]>([]),[articles,setArticles]=useState<ReadingArticle[]>([]),[selected,setSelected]=useState<string[]>([]),[title,setTitle]=useState(''),[date,setDate]=useState(new Date().toLocaleDateString('sv-SE')),[story,setStory]=useState(''),[feeling,setFeeling]=useState(''),[numberTitle,setNumberTitle]=useState(''),[numberDate,setNumberDate]=useState(new Date().toLocaleDateString('sv-SE')),[numbers,setNumbers]=useState(''),[numberContext,setNumberContext]=useState(''),[answer,setAnswer]=useState(''),[dreamError,setDreamError]=useState(''),[numberAnswer,setNumberAnswer]=useState(''),[numbersError,setNumbersError]=useState(''),[consent,setConsent]=useState(false),[busy,setBusy]=useState(false),[interpreting,setInterpreting]=useState(false),[message,setMessage]=useState(''),[article,setArticle]=useState<ReadingArticle>({id:'',title:'',subtitle:'',body:'',editor:'',topic:'jung'});
 
@@ -32,7 +34,7 @@ export default function Studio({adminMode=false}:{adminMode?:boolean}){
  const signin='/logowanie?return_to='+encodeURIComponent(adminMode?'/admin':'/');
  async function refresh(){const me=await api('me');setProfile(me);if(!personLoaded.current&&me.user){personLoaded.current=true;if(!personTouched.current){setPersonName(me.user.journalName||'');setPersonGender(me.user.gender||'neutral');savedPerson.current=JSON.stringify({name:me.user.journalName||'',gender:me.user.gender||'neutral'});}}if(me.user){setEntries(await api('dreams'));}setArticles(await api(adminMode&&(me.isAdmin||me.isEditor)?'articles?edit=1':'articles'));}
  useEffect(()=>{const hash=location.hash;if(hash==='#dziennik')setView('diary');else if(hash==='#sen')setView('dream');else if(hash==='#czytelnia')setView('reading');else if(hash==='#liczby')setView('numbers');refresh().catch(e=>setMessage(e.message));},[]);
- function open(next:string){setPrintRequest(null);setView(next);setMessage('');window.scrollTo({top:0,behavior:'smooth'});}
+ function open(next:string){if(dustTimer.current)clearTimeout(dustTimer.current);setPrintRequest(null);setView(next);setMessage('');window.scrollTo({top:0,behavior:'smooth'});}
  function openSoulCard(event:MouseEvent<HTMLAnchorElement>){
   if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   const art=event.currentTarget.querySelector<HTMLElement>('.art');if(!art)return;
@@ -49,9 +51,12 @@ export default function Studio({adminMode=false}:{adminMode?:boolean}){
   if((kind==='numbers'&&document.documentElement.dataset.homeTheme!=='navy')||window.matchMedia('(prefers-reduced-motion: reduce)').matches){open(kind);return;}
   const rect=event.currentTarget.querySelector('.art')?.getBoundingClientRect();
   if(!rect){open(kind);return;}
+  if(dustTimer.current)clearTimeout(dustTimer.current);
   const cloud=document.createElement('div');cloud.className='angel-dust-cloud'+(kind==='dream'?' dream-gold-dust':'');cloud.setAttribute('aria-hidden','true');
-  for(let i=0;i<48;i++){const mote=document.createElement('span');mote.className='angel-dust-mote';const angle=Math.random()*Math.PI*2,radius=.2+Math.random()*.3;mote.style.left=rect.left+rect.width*(.5+Math.cos(angle)*radius)+'px';mote.style.top=rect.top+rect.height*(.43+Math.sin(angle)*radius*.75)+'px';mote.style.setProperty('--dust-x',Math.cos(angle+.8)*(25+Math.random()*65)+'px');mote.style.setProperty('--dust-y',Math.sin(angle+.8)*55-35+'px');mote.style.setProperty('--dust-delay',Math.random()*100+'ms');mote.style.setProperty('--dust-size',1+Math.random()*2.2+'px');cloud.appendChild(mote);}
-  document.body.appendChild(cloud);setTimeout(()=>open(kind),650);setTimeout(()=>cloud.remove(),1300);
+  document.querySelectorAll('.angel-dust-cloud').forEach(node=>node.remove());
+  const golden=kind==='dream';
+  for(let i=0;i<(golden?110:90);i++){const mote=document.createElement('span');mote.className='angel-dust-mote';const angle=Math.random()*Math.PI*2,radius=.18+Math.random()*.29;mote.style.left=rect.left+rect.width*(.5+Math.cos(angle)*radius)+'px';mote.style.top=rect.top+rect.height*(.40+Math.sin(angle)*radius*.75)+'px';mote.style.setProperty('--dust-x',Math.cos(angle)*45+(Math.random()-.5)*35+'px');mote.style.setProperty('--dust-y',85+Math.random()*100+'px');mote.style.setProperty('--dust-delay',Math.random()*240+'ms');mote.style.setProperty('--dust-size',1.3+Math.random()*(golden?2.7:2.1)+'px');mote.style.setProperty('--dust-tone',golden?(i%4===0?'#fff0af':'#efc45e'):(i%3===0?'#d6bb80':'#fff7e4'));cloud.appendChild(mote);}
+  document.body.appendChild(cloud);dustTimer.current=setTimeout(()=>open(kind),4300);setTimeout(()=>cloud.remove(),4500);
  }
  async function run(fn:()=>Promise<void>){setMessage('');setBusy(true);try{await fn();}catch(e){setMessage(e instanceof Error?e.message:'Operacja nie powiodła się.');}finally{setBusy(false);}}
  async function requestInterpretation(kind:'dream'|'numbers'){
