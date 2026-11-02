@@ -150,12 +150,12 @@ Kliknięcie Sennika uruchamia złoty pył w obu motywach; Język Aniołów na gr
 
 Karta Kod Duszy ma efekt z kodu Soul Decoder Estera (`public_site/app.mjs`, `public_site/style.css`): trzy fale co 110 ms, 12 złotych drobinek, poświata i przejście do strony po 950 ms. Wspólne klasy `water-ripple`, `water-echo`, `is-activated` zachowują oryginalne parametry. Preferencja ograniczenia ruchu i otwieranie linku z klawiszami modyfikującymi zachowują zwykłą nawigację.
 
-Zatwierdzony podgląd pyłu wdrożony: Sennik 110 złotych drobinek, Język Aniołów 90 biało-złotych drobinek, uniesienie i powolne opadanie przez 4 sekundy. Formularz otwiera się po zakończeniu efektu (4,3 s). Ograniczenie ruchu nadal pomija animację i oczekiwanie.
+Zatwierdzony podgląd pyłu wdrożony: Sennik 100 złotych drobinek, Język Aniołów 100 biało-złotych drobinek, uniesienie i powolne opadanie przez 4 sekundy. Formularz otwiera się po zakończeniu efektu (4,3 s). Ograniczenie ruchu nadal pomija animację i oczekiwanie.
 
 
 ### Obowiązujący czas efektów kart
-- Sennik: 110 złotych drobinek, opadanie 4 s.
-- Język Aniołów na granacie: 90 biało-złotych drobinek, opadanie 4 s.
+- Sennik: 100 złotych drobinek, opadanie 4 s.
+- Język Aniołów na granacie: 100 biało-złotych drobinek, opadanie 4 s.
 - Kod Duszy: trzy złote fale co 110 ms, czas pojedynczej fali 3,8 s (ostatnia kończy się po około 4 s).
 - Wszystkie trzy karty otwierają cel po 4,3 s od kliknięcia.
 - Przy systemowym ograniczeniu ruchu animacje i opóźnienie są pomijane. Język Aniołów w jasnym motywie otwiera się bez pyłu i opóźnienia.
